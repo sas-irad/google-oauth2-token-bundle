@@ -64,7 +64,7 @@ class AppKernel extends Kernel
 - Update app/config/routing.yml for web access to token admin pages:
 ````
 oauth2_token:
-    resource: "@OAuth2TokenBundle/Controller"
+    resource: "@GmailOAuth2TokenBundle/Controller"
     type:     annotation
     prefix:   /admin/token
 ````
