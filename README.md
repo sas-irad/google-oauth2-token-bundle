@@ -53,3 +53,18 @@ class AppKernel extends Kernel
             -                 https://www.googleapis.com/auth/admin.directory.orgunit
             -                 https://www.googleapis.com/auth/admin.directory.user
 ````
+
+- Also in parameters.yml, update the admin users who may manage the oauth2 token:
+````
+    admin_users:
+        ROLE_TOKEN_ADMIN: [ tokenAdmin1, tokenAdmin2, ... ]
+        ROLE_LOG_ADMIN:   [ ... ]
+````
+
+- Update app/config/routing.yml for web access to token admin pages:
+````
+oauth2_token:
+    resource: "@OAuth2TokenBundle/Controller"
+    type:     annotation
+    prefix:   /admin/token
+````
