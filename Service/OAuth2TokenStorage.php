@@ -2,7 +2,7 @@
 
 namespace SAS\IRAD\GmailOAuth2TokenBundle\Service;
 
-use SAS\IRAD\FileStorage\Service\FileStorageService;
+use SAS\IRAD\FileStorageBundle\Service\FileStorageService;
 
 
 class OAuth2TokenStorage {
