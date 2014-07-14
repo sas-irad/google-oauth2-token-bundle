@@ -2,11 +2,12 @@
 
 namespace SAS\IRAD\GmailOAuth2TokenBundle\Service;
 
-use SAS\IRAD\GmailOAuth2TokenBundle\Storage\FileStorage;
+use SAS\IRAD\FileStorage\Service\FileStorageService;
 
 
 class OAuth2TokenStorage {
     
+    private $fileStorage;
     private $refreshTokenStorage;
     private $accessTokenStorage;
     
@@ -14,7 +15,9 @@ class OAuth2TokenStorage {
      * Constructor
      * @param array $oauth_params defined in app/config/parameters.yml
      */
-    public function __construct($oauth_params) {
+    public function __construct(FileStorageService $fileStorage, $oauth_params) {
+        
+        $this->fileStorage = $fileStorage;
         
         foreach ( array('refresh_token_file', 'access_token_file') as $param ) {
             if ( !isset($oauth_params[$param]) ) {
@@ -22,8 +25,8 @@ class OAuth2TokenStorage {
             }
         }
         
-        $this->refreshTokenStorage = new FileStorage($oauth_params['refresh_token_file']);
-        $this->accessTokenStorage  = new FileStorage($oauth_params['access_token_file']);
+        $this->refreshTokenStorage = $this->fileStorage->init($oauth_params['refresh_token_file']);
+        $this->accessTokenStorage  = $this->fileStorage->init($oauth_params['access_token_file']);
     }
 
     /**
