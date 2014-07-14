@@ -11,7 +11,7 @@
 	],
 	"require" : {
 		"php" : ">=5.3.2",
-		"sas-irad/file-storage-bundle" : "~0.1"
+		"sas-irad/file-storage-bundle" : "dev-master"
 	},
 	"require-dev" : {
 		"symfony/framework-bundle" : ">=2.1,<2.2-dev"
