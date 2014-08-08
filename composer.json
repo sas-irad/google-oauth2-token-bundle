@@ -3,7 +3,7 @@
 	"type" : "symfony-bundle",
 	"description" : "Bundle for managing GMail OAuth2 authentication token",
 	"license" : "Apache-2.0",
-	"minimum-stability" : "dev",
+	"minimum-stability" : "stable",
 	"authors" : [{
 			"name" : "Roberto Mansfield",
 			"email" : "robertom@sas.upenn.edu"
@@ -11,7 +11,7 @@
 	],
 	"require" : {
 		"php" : ">=5.3.2",
-		"sas-irad/file-storage-bundle" : "dev-master"
+		"sas-irad/file-storage-bundle" : ">=1.0.0"
 	},
 	"require-dev" : {
 		"symfony/framework-bundle" : ">=2.1,<2.2-dev"
