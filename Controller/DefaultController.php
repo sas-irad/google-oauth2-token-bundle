@@ -26,8 +26,6 @@ class DefaultController extends Controller {
         
         
     	if ( $adminClient->isAccessTokenValid() ) {
-    	    
-    	    $customer_id = $adminClient->getCustomerId();
     	    $token_status = "VALID";
     	    	
     	} else {
@@ -44,7 +42,6 @@ class DefaultController extends Controller {
          
         return array('oauth_auth_url'   => $oauth_auth_url,
                      'token_status'     => $token_status,
-                     'customer_id'      => $customer_id,
                      'oauth_params'     => $adminClient->getOAuthParams(),
                      'refresh_token'    => $adminClient->getStorage()->getRefreshToken());
     }    
