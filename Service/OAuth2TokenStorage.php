@@ -2,7 +2,7 @@
 
 namespace SAS\IRAD\GmailOAuth2TokenBundle\Service;
 
-use SAS\IRAD\FileStorageBundle\Service\FileStorageService;
+use SAS\IRAD\FileStorageBundle\Service\EncryptedFileStorageService;
 
 
 class OAuth2TokenStorage {
@@ -15,7 +15,7 @@ class OAuth2TokenStorage {
      * Constructor
      * @param array $oauth_params defined in app/config/parameters.yml
      */
-    public function __construct(FileStorageService $fileStorage, $oauth_params) {
+    public function __construct(EncryptedFileStorageService $fileStorage, $oauth_params) {
         
         $this->fileStorage = $fileStorage;
         
