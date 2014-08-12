@@ -76,4 +76,4 @@ oauth2_token:
     prefix:   /admin/token
 ````
 
-- Navigate to https://yourhost/path/app.php/admin/token/ to generate an OAuth2 token for you application.
+- Navigate to https://yourhost/path/app.php/admin/token/ to generate an OAuth2 token for your application.
