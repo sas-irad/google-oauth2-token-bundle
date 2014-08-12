@@ -14,7 +14,7 @@
 		"sas-irad/file-storage-bundle" : ">=1.0.0"
 	},
 	"require-dev" : {
-		"symfony/framework-bundle" : ">=2.1,<2.2-dev"
+		"symfony/framework-bundle" : ">=2.4,<2.5"
 	},
 	"autoload" : {
 		"psr-4" : {
@@ -22,13 +22,11 @@
 		}
 	},
 	"repositories" : [{
-			"type" : "git",
-			"url" : "https://github.com/sas-irad/gmail-oauth2-token-bundle/archive/master.zip",
-			"name" : "dev-master"
-		}, {
-			"type" : "git",
-			"url" : "https://github.com/sas-irad/gmail-oauth2-token-bundle/archive/v0.1.0.zip",
-			"name" : "0.1.0"
-		}
+            "type" : "vcs",
+            "url" : "https://github.com/sas-irad/gmail-oauth2-token-bundle"
+        }, {
+            "type" : "vcs",
+            "url" : "https://github.com/sas-irad/file-storage-bundle"
+        }
 	]
 }
