@@ -1,5 +1,39 @@
 ## GMail OAuth2 Token Bundle ##
 
+### Google Configuration ###
+
+- Enable API access in the Google Admin panel. (Security -> API Reference)
+
+- Create an admin role and account that will be used for API access and assign the following permissions. You will use
+  this account later to authorize the oauth2 token for API access.
+  - Create a user defined admin role (e.g., account_manager) and assign Admin API privileges:
+    - Organizational Units: Read, Update
+    - Users: Create, Read, Update [Delete is optional, good for development environment)
+    - Groups: Create, Read, Update
+    - You may assign Admin Console Privileges (good idea for development environment), or keep the account restricted to just API access.
+  - Create a new admin user (e.g., api_account) and assign the role created above.
+
+- Create an application org and account to "host" the OAuth2 application.
+  - Create an "application" org (e.g., App Developers).
+  - Enable Google App Engine Admin console for your application org defined above. 
+    - Google Dashboard -> More Controls (bottom of page) -> More Google Apps -> Google App Engine Admin Console
+    - Click the dropdown menu after "OFF" and select "ON for some organizations".
+    - Select the application org created above and click Override under settings (vs. inherited).
+    - Toggle the "OFF" switch to "ON" to enable the console for users in that org.
+  - Create an application account (e.g., application@your.google.domain) and assign to the application org above.
+
+- Create a new project in the Google Developers Console.
+  - Login to the Google Developers Console (https://console.developers.google.com/) with the application account 
+    and create a new project. (e.g., penn-sas-provisioning)
+  - Enable Admin SDK in your project (APIs & Auth -> APIs) and disable any other SDKs enabled by default.
+  - Create a new client id (APIs & Auth -> Credentials ->Create new Client ID)
+    - Select "web application" as the application type
+    - Enter the authorized redirect uri: https://you-web-host/path/to/app.php/admin/token/oauth2callback
+    - Note the generated client id and client secret. You will use these values in the symfony parameters.yml file.
+
+
+### Symfony Configuration ###
+
 - Add bundle to AppKernel.php
 ````
 class AppKernel extends Kernel
@@ -12,39 +46,12 @@ class AppKernel extends Kernel
             ...
 ````
 
-
-- Enable API access in the Google Admin panel. (Security -> bla bla)
-
-- Create a role / account that will be used for API access and assign the following permissions.
-    a. (check what role permissions we need)
-
-- Create an "application" org (e.g., App Developers).
-
-- Create an application user (e.g., application@your.google.domain).
-
-- Enable Google App Engine Admin console for your application org defined above. 
-    Google Dashboard -> More Controls (bottom of page) -> Other Google Services
-    a. Override
-    b. Switch on
-
-- Login to the Google Developers Console and create a new project. (e.g., penn-sas-provisioning)
-    https://console.developers.google.com/
-
-- Enable Admin SDK in your project.
-
-- Create client id for *web application*
-    a. Update parameters.yml with client id and secret
-    b. set oauth redirect url to match your app 
-    c. Set path for token cache and refresh token storage in parameters.yml 
-
--
-
-- Update parameters.yml with your account log database parameters:
+- Update parameters.yml with your OAuth2 parameters:
 ````
     oauth_params:
         client_id:        ** client id generated above **
         client_secret:    ** client secret generated above ** 
-        redirect_uri:     ** OAuth2 callback page: https://yourhost/path/app_dev.php/admin/token/oauth2callback **
+        redirect_uri:     ** OAuth2 callback page: https://yourhost/path/app.php/admin/token/oauth2callback **
 
         refresh_token_file:   ** path for refresh token storage **
         access_token_file:    ** path for access token storage **
@@ -68,3 +75,5 @@ oauth2_token:
     type:     annotation
     prefix:   /admin/token
 ````
+
+- Navigate to https://yourhost/path/app.php/admin/token/ to generate an OAuth2 token for you application.
