@@ -18,14 +18,15 @@ class DefaultController extends Controller {
     public function indexAction() {
     
         $user = $this->getUser();
-        $adminClient = $this->get('google_admin_client');
+        $oauth2Client = $this->get('oauth2_client');
+        $tokenManager = $this->get('oauth2_token_manager');
 
-        if ( !$adminClient->isAccessTokenValid() ) {
-            $adminClient->refreshToken(false);
+        if ( !$oauth2Client->isAccessTokenValid() ) {
+            $oauth2Client->refreshAccessToken(false);
         }
         
         
-    	if ( $adminClient->isAccessTokenValid() ) {
+    	if ( $oauth2Client->isAccessTokenValid() ) {
     	    $token_status = "VALID";
     	    	
     	} else {
@@ -34,16 +35,13 @@ class DefaultController extends Controller {
     	}
 
 	    // generate URL for user authorization
-    	$oauth_auth_url = $adminClient->createAuthUrl();
+    	$oauth_auth_url = $oauth2Client->createAuthUrl();
          
-         
-        //     	$orgs = $service->orgunits->listOrgunits($customer_id);
-        //     	print_r($orgs);
          
         return array('oauth_auth_url'   => $oauth_auth_url,
                      'token_status'     => $token_status,
-                     'oauth_params'     => $adminClient->getOAuthParams(),
-                     'refresh_token'    => $adminClient->getStorage()->getRefreshToken());
+                     'scopes'           => $oauth2Client->getScopes(),
+                     'refresh_token'    => $tokenManager->getRefreshToken());
     }    
     
     
@@ -56,8 +54,8 @@ class DefaultController extends Controller {
         $user = $this->getUser();
     	$code = $request->query->get('code');
     	
-        $adminClient = $this->get('google_admin_client');
-        $adminClient->authenticate($code, $user->getUsername());
+        $oauth2Client = $this->get('oauth2_client');
+        $oauth2Client->authenticate($code, $user->getUsername());
     	
     	return array();
     }
@@ -69,8 +67,8 @@ class DefaultController extends Controller {
      */
     public function revokeRefreshTokenAction() {
          
-        $adminClient = $this->get('google_admin_client');
-        $adminClient->revokeRefreshToken();
+        $oauth2Client = $this->get('oauth2_client');
+        $oauth2Client->revokeRefreshToken();
          
         return array();
          
