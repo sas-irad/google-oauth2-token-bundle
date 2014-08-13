@@ -5,7 +5,7 @@ namespace SAS\IRAD\GoogleOAuth2TokenBundle\Service;
 use SAS\IRAD\FileStorageBundle\Service\EncryptedFileStorageService;
 
 
-class OAuth2TokenStorage {
+class OAuth2TokenManager {
     
     private $oauth_params;
     private $refreshTokenStorage;
@@ -17,12 +17,8 @@ class OAuth2TokenStorage {
      */
     public function __construct(EncryptedFileStorageService $fileStorage, $oauth_params) {
         
-        $params = array('client_id', 
-                        'client_secret', 
-                        'redirect_uri', 
-                        'refresh_token_file', 
-                        'access_token_file',
-                        'scopes');
+        $params = array('refresh_token_file', 
+                        'access_token_file');
         
         foreach ( $params as $param ) {
             if ( !isset($oauth_params[$param]) ) {
@@ -37,30 +33,14 @@ class OAuth2TokenStorage {
         $this->accessTokenStorage  = $fileStorage->init($oauth_params['access_token_file']);
     }
 
-    
-    public function getClientId() {
-        return $this->oauth_params['client_id'];
-    }
-    
-    public function getClientSecret() {
-        return $this->oauth_params['client_secret'];
-    }
-    
-    public function getRedirectUri() {
-        return $this->oauth_params['redirect_uri'];
-    }
-    
-    public function getScopes() {
-        return $this->oauth_params['scopes'];
-    }
-    
-    
     /**
-     * Save the access token as a string (already in json format)
+     * Save the access token as a string (already in json format). Use
+     * the file locking of storage to avoid write conflicts.
      * @param string $data
      */
     public function saveAccessToken($data) {
-        $this->accessTokenStorage->save($data);
+        $this->accessTokenStorage->getAndHold();
+        $this->accessTokenStorage->saveAndRelease($data);
     }
     
     /**
@@ -68,7 +48,8 @@ class OAuth2TokenStorage {
      * @param array $data
      */
     public function saveRefreshToken($data) {
-        $this->refreshTokenStorage->save(json_encode($data));
+        $this->refreshTokenStorage->getAndHold();
+        $this->refreshTokenStorage->saveAndRelease(json_encode($data));
     }
 
     /**
