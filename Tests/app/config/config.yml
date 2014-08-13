@@ -1,0 +1,23 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    
+framework:
+    secret:          "bogus/secret/for/dev/environement"
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    session:
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+    router:   { resource: "%kernel.root_dir%/config/routing.yml" }
+    profiler: { only_exceptions: false }
+    templating:
+        engines: ['twig']    
+        
+# Twig Configuration
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+    

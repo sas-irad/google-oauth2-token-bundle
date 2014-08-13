@@ -1,0 +1,4 @@
+oauth2_token:
+    resource: "@GoogleOAuth2TokenBundle/Controller"
+    type:     annotation
+    prefix:   /admin/token
