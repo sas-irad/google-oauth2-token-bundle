@@ -32,7 +32,7 @@ class GoogleTokenStatusCommand extends ContainerAwareCommand {
         $output->writeln("Google OAuth2 Access Token status: EXPIRED");
         $output->writeln("Requesting new access token...");
             
-        $oauth2Client->refreshToken();
+        $oauth2Client->refreshAccessToken();
         if ( $oauth2Client->isAccessTokenValid() ) {
             $output->writeln("Refreshed Google OAuth2 Access Token status: VALID");
         } else {
