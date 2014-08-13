@@ -1,4 +1,7 @@
 services:
-    oauth2_token_storage:
-        class: SAS\IRAD\GoogleOAuth2TokenBundle\Service\OAuth2TokenStorage
+    oauth2_token_manager:
+        class: SAS\IRAD\GoogleOAuth2TokenBundle\Service\OAuth2TokenManager
         arguments: [ "@storage.encrypted", %oauth_params% ]
+    oauth2_client:
+        class: SAS\IRAD\GoogleOAuth2TokenBundle\Service\OAuth2Client
+        arguments: [ "@oauth2_token_manager", %oauth_params% ]
