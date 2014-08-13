@@ -1,6 +1,6 @@
 <?php
 
-namespace SAS\IRAD\GmailOAuth2TokenBundle\DependencyInjection;
+namespace SAS\IRAD\GoogleOAuth2TokenBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

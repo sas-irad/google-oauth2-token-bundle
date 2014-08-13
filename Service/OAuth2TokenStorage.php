@@ -1,13 +1,13 @@
 <?php
 
-namespace SAS\IRAD\GmailOAuth2TokenBundle\Service;
+namespace SAS\IRAD\GoogleOAuth2TokenBundle\Service;
 
 use SAS\IRAD\FileStorageBundle\Service\EncryptedFileStorageService;
 
 
 class OAuth2TokenStorage {
     
-    private $fileStorage;
+    private $oauth_params;
     private $refreshTokenStorage;
     private $accessTokenStorage;
     
@@ -17,18 +17,44 @@ class OAuth2TokenStorage {
      */
     public function __construct(EncryptedFileStorageService $fileStorage, $oauth_params) {
         
-        $this->fileStorage = $fileStorage;
+        $params = array('client_id', 
+                        'client_secret', 
+                        'redirect_uri', 
+                        'refresh_token_file', 
+                        'access_token_file',
+                        'scopes');
         
-        foreach ( array('refresh_token_file', 'access_token_file') as $param ) {
+        foreach ( $params as $param ) {
             if ( !isset($oauth_params[$param]) ) {
                 throw new \Exception("Parameter oauth_params.$param must be defined.");
             }
         }
         
-        $this->refreshTokenStorage = $this->fileStorage->init($oauth_params['refresh_token_file']);
-        $this->accessTokenStorage  = $this->fileStorage->init($oauth_params['access_token_file']);
+        $this->oauth_params = $oauth_params;
+        
+        // initialize file storage
+        $this->refreshTokenStorage = $fileStorage->init($oauth_params['refresh_token_file']);
+        $this->accessTokenStorage  = $fileStorage->init($oauth_params['access_token_file']);
     }
 
+    
+    public function getClientId() {
+        return $this->oauth_params['client_id'];
+    }
+    
+    public function getClientSecret() {
+        return $this->oauth_params['client_secret'];
+    }
+    
+    public function getRedirectUri() {
+        return $this->oauth_params['redirect_uri'];
+    }
+    
+    public function getScopes() {
+        return $this->oauth_params['scopes'];
+    }
+    
+    
     /**
      * Save the access token as a string (already in json format)
      * @param string $data

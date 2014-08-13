@@ -1,4 +1,4 @@
-## GMail OAuth2 Token Bundle ##
+## Google OAuth2 Token Bundle ##
 
 ### Google Configuration ###
 
@@ -42,7 +42,7 @@ class AppKernel extends Kernel
     {
         $bundles = array(
             ...
-            new SAS\IRAD\GmailOAuth2TokenBundle\GmailOAuth2TokenBundle(),
+            new SAS\IRAD\GoogleOAuth2TokenBundle\GoogleOAuth2TokenBundle(),
             ...
 ````
 
@@ -71,7 +71,7 @@ class AppKernel extends Kernel
 - Update app/config/routing.yml for web access to token admin pages:
 ````
 oauth2_token:
-    resource: "@GmailOAuth2TokenBundle/Controller"
+    resource: "@GoogleOAuth2TokenBundle/Controller"
     type:     annotation
     prefix:   /admin/token
 ````

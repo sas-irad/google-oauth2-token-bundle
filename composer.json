@@ -1,7 +1,7 @@
 {
-	"name" : "sas-irad/gmail-oauth2-token-bundle",
+	"name" : "sas-irad/google-oauth2-token-bundle",
 	"type" : "symfony-bundle",
-	"description" : "Bundle for managing GMail OAuth2 authentication token",
+	"description" : "Bundle for managing Google OAuth2 authentication token",
 	"license" : "Apache-2.0",
 	"minimum-stability" : "stable",
 	"authors" : [{
@@ -18,15 +18,15 @@
 	},
 	"autoload" : {
 		"psr-4" : {
-			"SAS\\IRAD\\GmailOAuth2TokenBundle\\" : ""
+			"SAS\\IRAD\\GoogleOAuth2TokenBundle\\" : ""
 		}
 	},
 	"repositories" : [{
-            "type" : "vcs",
-            "url" : "https://github.com/sas-irad/gmail-oauth2-token-bundle"
-        }, {
-            "type" : "vcs",
-            "url" : "https://github.com/sas-irad/file-storage-bundle"
-        }
+			"type" : "vcs",
+			"url" : "https://github.com/sas-irad/google-oauth2-token-bundle"
+		}, {
+			"type" : "vcs",
+			"url" : "https://github.com/sas-irad/file-storage-bundle"
+		}
 	]
 }

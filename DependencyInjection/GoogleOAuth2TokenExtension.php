@@ -1,6 +1,6 @@
 <?php
 
-namespace SAS\IRAD\GmailOAuth2TokenBundle\DependencyInjection;
+namespace SAS\IRAD\GoogleOAuth2TokenBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

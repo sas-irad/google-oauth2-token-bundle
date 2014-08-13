@@ -1,6 +1,6 @@
 <?php
 
-namespace SAS\IRAD\GmailOAuth2TokenBundle\Controller;
+namespace SAS\IRAD\GoogleOAuth2TokenBundle\Controller;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
