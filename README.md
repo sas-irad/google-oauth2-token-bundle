@@ -20,6 +20,7 @@
     - Click the dropdown menu after "OFF" and select "ON for some organizations".
     - Select the application org created above and click Override under settings (vs. inherited).
     - Toggle the "OFF" switch to "ON" to enable the console for users in that org.
+    - You'll get a warning that it takes up to 24 hours for these changes to become active -- an hour is a more realistic time frame.
   - Create an application account (e.g., application@your.google.domain) and assign to the application org above.
 
 - Create a new project in the Google Developers Console.
